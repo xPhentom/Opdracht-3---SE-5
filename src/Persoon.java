@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+//import javax.validation.constraints.Pattern;
+//import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.
+//import org.hibernate.validator.constraints.NotEmpty;
+
 
 @Entity
 @Table(name = "personen")
@@ -25,19 +25,19 @@ public class Persoon implements Serializable {
     private String status;
 
     @Column
-    @NotEmpty(message = "Voornaam: ")
+    //@NotEmpty(message = "Voornaam: ")
     private String voornaam;
 
     @Column
-    @Size(min = 1, message = "Familienaam is minstens 1 letter aub")
+    //@Size(min = 1, message = "Familienaam is minstens 1 letter aub")
     private String familienaam;
 
     @Column
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", message = "Vul een geldig e-mail adres in ")
+    //@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", message = "Vul een geldig e-mail adres in ")
     private String emailadres;
 
     @Column
-    @Size(min = 4, message = "Paswoord is minstens 4 letters aub")
+    //@Size(min = 4, message = "Paswoord is minstens 4 letters aub")
     private String paswoord;
 
     @OneToMany(fetch=FetchType.EAGER,mappedBy="persoon")
@@ -124,7 +124,7 @@ public class Persoon implements Serializable {
         return m_Rollen;
     }
 
-    public Rol voegRolToe(String type, String status, String usernaam) throws RolNotFoundException {
+    public Rol voegRolToe(String type, String status, String usernaam) {
         Rol newRol = null;
         if (type.toLowerCase().equals("Administrator"))
             newRol = new Administrator(status, usernaam, this);
@@ -134,8 +134,8 @@ public class Persoon implements Serializable {
             newRol = new Verhuurder(status, usernaam, this);
         if (type.toLowerCase().equals("Installateur"))
             newRol = new Installateur(status, usernaam, this);
-        if (newRol == null)
-            throw new RolNotFoundException("Type " + type + " is geen bekende Rol");
+        //if (newRol == null)
+            //throw new RolNotFoundException("Type " + type + " is geen bekende Rol");
         m_Rollen.add(newRol);
         return newRol;
     }
